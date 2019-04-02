@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace cms.web.Repositories
 {
-    public class BaseRepository<T> where T : BaseModel
+    public class BaseRepository<T> where T : AuditoryBaseModel
     {
         protected string _dbName;
         protected string _collectionName;
@@ -56,7 +56,6 @@ namespace cms.web.Repositories
         {
             if (model.Id == Guid.Empty)
             {
-
                 model.Id = Guid.NewGuid();
                 model.CreatedAt = DateTime.Now;
 
@@ -68,6 +67,8 @@ namespace cms.web.Repositories
             }
             else
             {
+                model.UpdatedAt = DateTime.Now;
+
                 using (var db = new LiteDatabase(_connectionString))
                 {
                     var collection = db.GetCollection<T>(_collectionName);

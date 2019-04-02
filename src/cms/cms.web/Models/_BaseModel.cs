@@ -8,13 +8,13 @@ namespace cms.web.Models
     public abstract class BaseModel
     {
         public Guid Id { get; set; } = Guid.Empty;
-
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
     }
 
 
     public abstract class AuditoryBaseModel : BaseModel
     {
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+
         public string CreatedBy { get; set; } = "";
 
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
