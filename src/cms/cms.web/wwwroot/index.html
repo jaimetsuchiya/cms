@@ -13,9 +13,11 @@
     <link rel="stylesheet" href="css/lightbox.css" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/responsive.css" />
-    <link rel="stylesheet" href="css/contentbuilder.css" />
+
+    <link href="assets/minimalist-blocks/content.css" rel="stylesheet" type="text/css" />
+    <link href="contentbuilder/contentbuilder.css" rel="stylesheet" type="text/css" />
     <script src="js/vendor/modernizr.js"></script>
-    
+
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600,700%7CRaleway:400,700' rel='stylesheet' type='text/css'>
 </head>
 <body id="body">
@@ -757,7 +759,7 @@
     <script src="js/vendor/jquery-ui.js"></script>
     <script src="js/vendor/html.sortable.min.js"></script>
     <script src="js/load-image.all.min.js"></script>
-    <script src="js/contentbuilder.js"></script>
+    <script src="contentbuilder/contentbuilder.min.js" type="text/javascript"></script>
 
     <script src="js/foundation.min.js"></script>
     <script src="js/jquery.flexslider-min.js"></script>
@@ -769,19 +771,31 @@
     <script src="js/lightbox.min.js"></script>
     <script src="js/scripts.js"></script>
 
+    <div class="is-tool" style="position:fixed;width:140px;height:50px;border:none;top:30px;bottom:auto;left:auto;right:30px;text-align:right;display:block">
+        <button id="btnViewSnippets" class="classic" style="width:70px;height:50px;">+ Add</button>
+        <button id="btnViewHtml" class="classic" style="width:70px;height:50px;">HTML</button>
+    </div>
+
     <script>
         $(document).foundation();
-        jQuery(document).ready(function ($) {
+       jQuery(document).ready(function ($) {
 
-            $("#body").contentbuilder({
-                snippetFile: '/assets/default/snippets.html',
-                snippetOpen: true,
-                toolbar: 'left',
-                iconselect: '/assets/ionicons/selecticon.html'
-            });
-
+        var obj = $.contentbuilder({
+            container: '#body',
+            cellFormat: '<div class="col-md-12"></div>',
+            rowFormat: '<div class="row"></div>',
+            framework: 'bootstrap'
         });
-    
+
+        $('#btnViewSnippets').on('click', function () {
+            obj.viewSnippets();
+        });
+
+        $('#btnViewHtml').on('click', function () {
+            obj.viewHtml();
+        });
+
+    });
     </script>
 </body>
 </html>
