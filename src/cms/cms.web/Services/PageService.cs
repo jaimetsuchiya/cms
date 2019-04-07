@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace cms.web.Services
 {
-    public class PageService
+    public class PageService : ICRUDService<PageModel>
     {
         protected IRepository<PageModel> _repository = null;
 

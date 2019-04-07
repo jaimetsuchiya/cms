@@ -1,0 +1,135 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Default Example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="#" />
+
+    <!-- Required css for production -->
+    <link href="box/box.css" rel="stylesheet" type="text/css" /> <!-- Box Framework css include (contains a simple css for sections) -->
+    <link href="assets/minimalist-blocks/content.css" rel="stylesheet" type="text/css" /> <!-- Snippets css include (contains a simple css for content blocks/snippets) -->
+
+    <script>
+        /* Load saved styles. This example use browser local storage to save the styles. You can use database for saving in your site or CMS. */
+        if (localStorage.getItem('maincss') != null) {
+            document.getElementsByTagName('head')[0].insertAdjacentHTML('beforeend', localStorage.getItem('maincss'));
+        }
+        if (localStorage.getItem('sectioncss') != null) {
+            document.getElementsByTagName('head')[0].insertAdjacentHTML('beforeend', localStorage.getItem('sectioncss'));
+        }
+    </script>
+
+    <link href="assets/scripts/simplelightbox/simplelightbox.css" rel="stylesheet" type="text/css" /> <!-- Lightbox css include -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+
+    <!-- Required css for editing (not needed in production) -->
+    <link href="contentbuilder/contentbuilder.css" rel="stylesheet" type="text/css" />
+    <link href="contentbox/contentbox.css" rel="stylesheet" type="text/css" />
+    <script src="assets/cms.js"></script>
+</head>
+<body>
+
+    <div class="is-wrapper">
+
+    </div>
+
+    <div class="is-sidebar-button" id="lnkSideBarSave" data-content="divSidebarSave" data-command="save" title="Salvar">
+        <i class="fas fa-save"></i>
+    </div>
+    <div class="is-sidebar-button" id="lnkSideBarBack" data-content="divSidebarBack" data-command="back" title="Voltar">
+        <i class="fas fa-arrow-circle-left"></i>
+    </div>
+
+    <div style="width:200px;height:90px;position:fixed;right:50px;bottom:50px;display:none">
+        <a href="#" class="destroy is-btn is-btn-ghost1 is-upper is-rounded-30 is-btn-small edit" title="">Destroy</a>
+        <a href="#" class="checkhtml is-btn is-btn-ghost1 is-upper is-rounded-30 is-btn-small edit" title="">View HTML</a>
+    </div>
+    <!-- Required js for production -->
+    <script src="contentbuilder/jquery.min.js" type="text/javascript"></script>
+    <script src="assets/scripts/simplelightbox/simple-lightbox.min.js" type="text/javascript"></script>
+
+    <!-- Required js for editing (not needed in production) -->
+    <script src="contentbuilder/contentbuilder.min.js" type="text/javascript"></script>
+    <script src="contentbuilder/saveimages.js" type="text/javascript"></script>
+    <script src="contentbox/contentbox.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+
+        jQuery(document).ready(function ($) {
+
+            //Load content from database (in this example we use browser's localStorage. Normally you need to load saved content from database and place it directly inside div.is-wrapper above)
+            if (localStorage.getItem('mypage') != null) {
+                $(".is-wrapper").html(localStorage.getItem('mypage'));
+            }
+
+            //Enable editing
+            $(".is-wrapper").contentbox({
+                coverImageHandler: 'savecover.ashx', /* for uploading section background */
+                largerImageHandler: 'saveimage-large.ashx', /* for uploading larger image */
+                moduleConfig: [{
+                    "moduleSaveImageHandler": "saveimage-module.ashx" /* for module purpose image saving (ex. slider) */
+                }],
+                onRender: function () {
+                    //Add lightbox script (This is optional. If used, lightbox js & css must be included)
+                    $('a.is-lightbox').simpleLightbox({ closeText: '<i style="font-size:35px" class="icon ion-ios-close-empty"></i>', navText: ['<i class="icon ion-ios-arrow-left"></i>', '<i class="icon ion-ios-arrow-right"></i>'], disableScroll: false });
+                },
+                onChange: function () {
+                    //Auto Save
+                    var timeoutId;
+                    clearTimeout(timeoutId);
+                    timeoutId = setTimeout(function () {
+                        save();
+                    }, 1000);
+                },
+                useSidebar: true,
+                enableContentStyle: true /* (1) Applicable only if useSidebar is set true.
+                                                (2) If enableContentStyle is set true, styles must also be saved. Use .mainCss() & sectionCss() to get the styles. See save() function below. */
+            });
+
+            $('a.is-lightbox').simpleLightbox({ closeText: '<i style="font-size:35px" class="icon ion-ios-close-empty"></i>', navText: ['<i class="icon ion-ios-arrow-left"></i>', '<i class="icon ion-ios-arrow-right"></i>'], disableScroll: false });
+
+            setTimeout(function () {
+                $('#lnkSideBarSave').detach().appendTo(".is-sidebar");
+                $('#lnkSideBarBack').detach().appendTo(".is-sidebar");
+            }, 500)
+
+            $("#divSidebarBack").off('click').on('click', function () {
+                document.location.href = "editPage.html?id=" + getParameterByName("id");
+            });
+
+            $("#divSidebarBack").off('click').on('click', function () {
+                document.location.href = "editPage.html?id=" + getParameterByName("id");
+            });
+        });
+
+        function save() {
+            //Save all base64 images into files on the server
+            $("body").saveimages({
+                handler: 'saveimage.php', /* for saving embedded base64 image to image file */
+                onComplete: function () {
+
+                    //Save Content
+                    var sHTML = $('.is-wrapper').data('contentbox').html();
+                    localStorage.setItem('mypage', sHTML); //In this example, save the content into browser's local storage.
+
+                    //Save Styles (only if enableContentStyle is set true)
+                    var sMainCss = $('.is-wrapper').data('contentbox').mainCss(); //mainCss() returns css include that defines typography style for the body/entire page.
+                    localStorage.setItem('maincss', sMainCss); //In this example, save the styles into browser's local storage.
+
+                    var sSectionCss = $('.is-wrapper').data('contentbox').sectionCss(); //sectionCss returns css includes that define typography styles for certan section(s) on the page
+                    localStorage.setItem('sectioncss', sSectionCss); //In this example, save the styles into browser's local storage.
+
+                }
+            });
+            $("body").data('saveimages').save();
+        }
+
+    </script>
+
+    <!-- Required js for production -->
+    <script src="box/box.js" type="text/javascript"></script> <!-- Box Framework js include -->
+
+</body>
+</html>

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace cms.web.Services
 {
-    public class MenuService
+    public class MenuService: ICRUDService<MenuModel>
     {
         protected IRepository<MenuModel> _repository = null;
 
@@ -16,6 +16,11 @@ namespace cms.web.Services
         public List<MenuModel> GetAll()
         {
             return _repository.GetAll().OrderBy(l => l.ParentMenu == null).OrderBy(m=>m.Position).ToList();
+        }
+
+        public MenuModel Get(Guid id)
+        {
+            return _repository.GetSingle(id);
         }
 
         public void Save(ref MenuModel model)

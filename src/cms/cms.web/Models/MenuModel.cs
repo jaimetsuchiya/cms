@@ -30,6 +30,7 @@ namespace cms.web.Models
         public bool Enabled { get; set; } = true;
 
         public int Position { get; set; } = 1;
+
     }
 
     public enum MenuSourceType

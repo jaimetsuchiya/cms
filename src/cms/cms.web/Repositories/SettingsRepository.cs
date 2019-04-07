@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace cms.web.Repositories
 {
-    public class PageRepository : BaseRepository<PageModel>, IRepository<PageModel>
+    public class SettingsRepository : BaseRepository<SettingsModel>, IRepository<SettingsModel>
     {
-        public PageRepository() : base(Constants.PAGES, "Page")
+        public SettingsRepository() : base(Constants.CMS, "Settings")
         {
         }
     }

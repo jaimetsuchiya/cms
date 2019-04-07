@@ -7,6 +7,8 @@ namespace cms.web
 {
     public class Constants
     {
+        public const string PAGES = "Pages";
+        public const string MENUS = "Menus";
         public const string CMS = "CMS";
         public const string Security = "Security";
         public const string History = "History";

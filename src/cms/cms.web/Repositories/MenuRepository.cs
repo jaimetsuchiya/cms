@@ -8,7 +8,7 @@ namespace cms.web.Repositories
 {
     public class MenuRepository: BaseRepository<MenuModel>, IRepository<MenuModel>
     {
-        public MenuRepository() : base(Constants.CMS, "Menu")
+        public MenuRepository() : base(Constants.MENUS, "Menu")
         {
 
         }

@@ -2,14 +2,15 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>CMS - Dashboard</title>
+    <title>CMS - Páginas</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <link rel="shortcut icon" href="#" />
 
-    <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../assets/simple-sidebar.css" rel="stylesheet">
-
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/simple-sidebar.css" rel="stylesheet">
+    <script src="assets/axios.js"></script>
+    <script src="assets/vue.js"></script>
 </head>
 <body>
     <div class="d-flex" id="wrapper">
@@ -28,7 +29,7 @@
         </div>
         <!-- /#sidebar-wrapper -->
         <!-- Page Content -->
-        <div id="page-content-wrapper">
+        <div id="page-content-wrapper" class="app">
 
             <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
                 <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
@@ -63,7 +64,11 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12 pb-5 pt-2">
-
+                        <button class="btn btn-primary" type="button" @click="newPage">Nova Página</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 pb-5 pt-2">
                     </div>
                 </div>
             </div>
@@ -75,8 +80,8 @@
 
 
     <!-- Bootstrap core JavaScript -->
-    <script src="../assets/vendor/jquery/jquery.min.js"></script>
-    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Menu Toggle Script -->
     <script>
@@ -84,6 +89,33 @@
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
         });
+
+        new Vue({
+            el: '.app',
+            data: {
+                loading: true,
+                pages: []
+            },
+            mounted () {
+                axios
+                    .get('api/pages')
+                    .then(response => {
+                        this.pages = response.data
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+                    .finally(() => this.loading = false)
+            },
+            methods: {
+                newPage: function() {
+                    document.location.href = "editPage.html?id=00000000-0000-0000-0000-000000000000";
+                },
+                editPage: function (id) {
+                    document.location.href = "editPage.html?id=" + id;
+                }
+            }
+        })
     </script>
 
 
