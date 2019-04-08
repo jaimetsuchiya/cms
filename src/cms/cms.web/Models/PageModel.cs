@@ -23,6 +23,9 @@ namespace cms.web.Models
         [Required]
         public string Content { get; set; }
 
+        public string MainCSS { get; set; }
+
+        public string SectionCSS { get; set; }
 
         public string Description { get; set; }
 

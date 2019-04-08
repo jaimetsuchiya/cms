@@ -47,5 +47,29 @@ namespace cms.web.Controllers
             return page;
         }
 
+        /// <summary>
+        /// Método chamado no save da página de edição de conteúdo
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        [HttpPut("{id}")]
+        public ActionResult<PageModel> Put(Guid id, [FromBody] PageModel page)
+        {
+            if(id != Guid.Empty)
+            {
+                //Carrega os dados da página atual
+                var model = _pageService.Get(id);
+                if (model == null)
+                    model = new PageModel();
+
+                model.Content = page.Content;
+                page = model;
+            }
+
+            _pageService.Save(ref page);
+            return page;
+        }
+
     }
 }

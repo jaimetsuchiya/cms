@@ -90,16 +90,31 @@
 
             $('a.is-lightbox').simpleLightbox({ closeText: '<i style="font-size:35px" class="icon ion-ios-close-empty"></i>', navText: ['<i class="icon ion-ios-arrow-left"></i>', '<i class="icon ion-ios-arrow-right"></i>'], disableScroll: false });
 
+            //Load content based on the informed id
+
             setTimeout(function () {
                 $('#lnkSideBarSave').detach().appendTo(".is-sidebar");
                 $('#lnkSideBarBack').detach().appendTo(".is-sidebar");
             }, 500)
 
             $("#divSidebarBack").off('click').on('click', function () {
+                //Avisa que as alterações serão perdidas
+                //Clear localstorage
+                //Back
                 document.location.href = "editPage.html?id=" + getParameterByName("id");
             });
 
-            $("#divSidebarBack").off('click').on('click', function () {
+            $("#divSidebarSave").off('click').on('click', function () {
+
+                var model = {
+                    Content: localStorage.getItem('mypage'),
+                    MainCSS: localStorage.getItem('maincss'),
+                    SectionCSS: localStorage.getItem('sectioncss'),
+                    Id: getParameterByName("id")
+                };
+
+                //Call Put on PagesController
+                //Update the ID reloading the page, case the current id is equal empty
                 document.location.href = "editPage.html?id=" + getParameterByName("id");
             });
         });
