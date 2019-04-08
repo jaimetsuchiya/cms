@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Default Example</title>
+    <title>Edição de Conteúdo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <link rel="shortcut icon" href="#" />
@@ -28,7 +28,7 @@
     <!-- Required css for editing (not needed in production) -->
     <link href="contentbuilder/contentbuilder.css" rel="stylesheet" type="text/css" />
     <link href="contentbox/contentbox.css" rel="stylesheet" type="text/css" />
-    <script src="assets/cms.js"></script>
+    
 </head>
 <body>
 
@@ -85,37 +85,63 @@
                 },
                 useSidebar: true,
                 enableContentStyle: true /* (1) Applicable only if useSidebar is set true.
-                                                (2) If enableContentStyle is set true, styles must also be saved. Use .mainCss() & sectionCss() to get the styles. See save() function below. */
+                                                    (2) If enableContentStyle is set true, styles must also be saved. Use .mainCss() & sectionCss() to get the styles. See save() function below. */
             });
 
             $('a.is-lightbox').simpleLightbox({ closeText: '<i style="font-size:35px" class="icon ion-ios-close-empty"></i>', navText: ['<i class="icon ion-ios-arrow-left"></i>', '<i class="icon ion-ios-arrow-right"></i>'], disableScroll: false });
 
             //Load content based on the informed id
+            
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: "api/pages/" + getParameterByName("id"),
+                success: function (result) {
+                    console.log('get page', result);
+                    localStorage.setItem('model', JSON.stringify(result));
+                }
+            });
 
             setTimeout(function () {
                 $('#lnkSideBarSave').detach().appendTo(".is-sidebar");
                 $('#lnkSideBarBack').detach().appendTo(".is-sidebar");
             }, 500)
 
-            $("#divSidebarBack").off('click').on('click', function () {
-                //Avisa que as alterações serão perdidas
-                //Clear localstorage
-                //Back
+            $("#lnkSideBarBack").off('click').on('click', function () {
+
+                var lastSave = new Date(localStorage.getItem('lastSave'));
+                var lastEdit = new Date(localStorage.getItem('lastEdit'));
+
+                if (lastSave < lastEdit)
+                    if (!confirm("Deseja descartar as alterações?"))
+                        return;
+
                 document.location.href = "editPage.html?id=" + getParameterByName("id");
             });
 
-            $("#divSidebarSave").off('click').on('click', function () {
+            $("#lnkSideBarSave").off('click').on('click', function () {
 
-                var model = {
-                    Content: localStorage.getItem('mypage'),
-                    MainCSS: localStorage.getItem('maincss'),
-                    SectionCSS: localStorage.getItem('sectioncss'),
-                    Id: getParameterByName("id")
-                };
+                var model = JSON.parse(localStorage.getItem("model"));
+                model.Content = localStorage.getItem('mypage');
+                model.MainCSS = localStorage.getItem('maincss');
+                model.SectionCSS = localStorage.getItem('sectioncss');
+                var jsonStr = JSON.stringify(model);
+                console.log(jsonStr);
+                $.ajax({
+                    type: 'PUT',
+                    contentType: 'application/json',
+                    url: "api/pages/" + getParameterByName("id"),
+                    data: jsonStr,
+                    success: function (result) {
+                        console.log('save result', result);
+                        if (result.id != getParameterByName("id")) {
+                            document.location.href = "editContent.html?id=" + result.id;
+                            return;
+                        }
+                        localStorage.setItem('lastSave', new Date());
+                    }
+                });
 
-                //Call Put on PagesController
-                //Update the ID reloading the page, case the current id is equal empty
-                document.location.href = "editPage.html?id=" + getParameterByName("id");
             });
         });
 
@@ -136,6 +162,7 @@
                     var sSectionCss = $('.is-wrapper').data('contentbox').sectionCss(); //sectionCss returns css includes that define typography styles for certan section(s) on the page
                     localStorage.setItem('sectioncss', sSectionCss); //In this example, save the styles into browser's local storage.
 
+                    localStorage.setItem('lastEdit', new Date());
                 }
             });
             $("body").data('saveimages').save();
@@ -145,6 +172,6 @@
 
     <!-- Required js for production -->
     <script src="box/box.js" type="text/javascript"></script> <!-- Box Framework js include -->
-
+    <script src="assets/cms.js"></script>
 </body>
 </html>

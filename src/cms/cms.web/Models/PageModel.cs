@@ -8,19 +8,13 @@ namespace cms.web.Models
 {
     public class PageModel: AuditoryBaseModel
     {
-        [Required]
         public MenuModel Menu { get; set; }
 
+        public Guid? MenuId { get; set; }
 
         [Required]
         public string Title { get; set; }
 
-
-        [Required]
-        public bool Public { get; set; }
-
-
-        [Required]
         public string Content { get; set; }
 
         public string MainCSS { get; set; }

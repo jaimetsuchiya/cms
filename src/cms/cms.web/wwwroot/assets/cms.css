@@ -1,0 +1,12 @@
+﻿.previewContent {
+    transform: scale(0.3);
+    transform-origin: 0 0;
+}
+
+.largePreviewContent {
+    transform: scale(0.3);
+    transform-origin: 0 0;
+    max-height:400px;
+    width:100%;
+    overflow:hidden;
+}

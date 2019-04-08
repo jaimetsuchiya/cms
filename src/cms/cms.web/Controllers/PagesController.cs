@@ -44,6 +44,8 @@ namespace cms.web.Controllers
         public ActionResult<PageModel> Post([FromBody] PageModel page)
         {
             _pageService.Save(ref page);
+            //TODO: If Page is Public, Generate new File
+
             return page;
         }
 
@@ -64,10 +66,14 @@ namespace cms.web.Controllers
                     model = new PageModel();
 
                 model.Content = page.Content;
+                model.MainCSS = page.MainCSS;
+                model.SectionCSS = page.SectionCSS;
                 page = model;
             }
 
             _pageService.Save(ref page);
+
+            //TODO: If Page is Public, Generate new File
             return page;
         }
 

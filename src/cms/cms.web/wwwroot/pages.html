@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <link rel="shortcut icon" href="#" />
-
+    <link href="assets/cms.css" rel="stylesheet" />
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/simple-sidebar.css" rel="stylesheet">
     <script src="assets/axios.js"></script>
@@ -15,51 +15,11 @@
 <body>
     <div class="d-flex" id="wrapper">
 
-        <!-- Sidebar -->
-        <div class="bg-light border-right" id="sidebar-wrapper">
-            <div class="sidebar-heading">CMS</div>
-            <div class="list-group list-group-flush">
-                <a href="dashboard.html" class="list-group-item list-group-item-action bg-light">Dashboard</a>
-                <a href="menus.html" class="list-group-item list-group-item-action bg-light">Menus</a>
-                <a href="pages.html" class="list-group-item list-group-item-action bg-light">Páginas</a>
-                <a href="contacts.html" class="list-group-item list-group-item-action bg-light">Contatos</a>
-                <a href="users.html" class="list-group-item list-group-item-action bg-light">Usuários</a>
-                <a href="settings.html" class="list-group-item list-group-item-action bg-light">Configurações</a>
-            </div>
-        </div>
-        <!-- /#sidebar-wrapper -->
-        <!-- Page Content -->
+        <div class="bg-light border-right" id="sidebar-wrapper" w3-include-html="assets/sideMenu.html"></div>
+
         <div id="page-content-wrapper" class="app">
 
-            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-                <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
-
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Dropdown
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom" w3-include-html="assets/topMenu.html"></nav>
 
             <div class="container-fluid">
                 <div class="row">
@@ -67,16 +27,13 @@
                         <button class="btn btn-primary" type="button" @click="newPage">Nova Página</button>
                     </div>
                 </div>
-                
+
                 <div class="row">
-                    <div class="col-md-12 pb-5 pt-2">
-                        <!--Filtros-->
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 pb-5 pt-2">
-                        <!--Exibir miniaturas das páginas editadas-->
-                    </div>
+                    <!--Exibir miniaturas das páginas editadas-->
+                    <page-record v-for="page in pages"
+                                    v-bind:key="page.id"
+                                    v-bind:page="page">
+                    </page-record>
                 </div>
             </div>
 
@@ -89,14 +46,10 @@
     <!-- Bootstrap core JavaScript -->
     <script src="assets/vendor/jquery/jquery.min.js"></script>
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+    <script src="assets/cms.js"></script>
     <!-- Menu Toggle Script -->
     <script>
-        $("#menu-toggle").click(function (e) {
-            e.preventDefault();
-            $("#wrapper").toggleClass("toggled");
-        });
-
+      
         new Vue({
             el: '.app',
             data: {
@@ -107,7 +60,8 @@
                 axios
                     .get('api/pages')
                     .then(response => {
-                        this.pages = response.data
+                        this.pages = response.data;
+                        console.log()
                     })
                     .catch(error => {
                         console.log(error)
@@ -120,8 +74,22 @@
                 },
                 editPage: function (id) {
                     document.location.href = "editPage.html?id=" + id;
+                },
+                previewUrl: function (id) {
+                    return "preview.html?id=" + id;
                 }
             }
+        })
+
+        Vue.component('page-record', {
+            props: ['page'],
+            template: `
+                <div class="col-md-6 pt-2 pb-5">
+                    <a v-bind:href="'editPage.html?id=' + page.id"><h4>{{page.title}}</h4></a>
+                    <iframe width="100%" height="250px" frameborder="0" v-bind:src="'preview.html?id=' + page.id">
+                    </iframe>
+                </div>
+          `
         })
     </script>
 
