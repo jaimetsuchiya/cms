@@ -17,7 +17,7 @@ namespace cms.web.Repositories
         {
             _dbName = dbName;
             _dbName += ".db";
-            _connectionString = $@"Filename={_dbName}; Mode=Exclusive";//Mode=Exclusive
+            _connectionString = $@"Filename={_dbName}; ";//Mode=Exclusive
             _collectionName = collectionName;
         }
 
@@ -27,7 +27,7 @@ namespace cms.web.Repositories
             _dbName += "_";
             _dbName += version.ToString("yyyy-MM-dd");
             _dbName += ".db";
-            _connectionString = $@"Filename={_dbName}; Mode=Exclusive";//Mode=Exclusive
+            _connectionString = $@"Filename={_dbName}; ";//Mode=Exclusive
 
             _collectionName = collectionName;
         }

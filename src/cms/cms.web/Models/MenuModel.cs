@@ -37,6 +37,7 @@ namespace cms.web.Models
         [Required]
         public MenuLayout Layout { get; set; }
 
+        public DateTime? PublishedAt { get; set; }
     }
 
     public enum MenuSourceType

@@ -7,6 +7,7 @@ using cms.web.DTOs;
 using cms.web.Infrastructure;
 using cms.web.Models;
 using cms.web.Services;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
 namespace cms.web.Controllers
@@ -18,7 +19,7 @@ namespace cms.web.Controllers
         private IMenuService _menuService = null;
         private IPageService _pageService = null;
 
-        public MenusController(IViewRenderService viewRenderService, IPageService pageService, IMenuService menuService) : base(viewRenderService, pageService) {
+        public MenusController(IViewRenderService viewRenderService, IPageService pageService, IMenuService menuService, ISettingsService settingsService, IHostingEnvironment hostingEnvironment) : base(viewRenderService, pageService, settingsService, hostingEnvironment) {
             _menuService = menuService;
             _pageService = pageService;
         }

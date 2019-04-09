@@ -203,7 +203,13 @@
                     document.location.href = "editContent.html?id=" + getParameterByName('id')
                 },
                 publishPage: function () {
+                     axios
+                        .put('api/pages/' + getParameterByName('id') + '/true')
+                        .then(response => {
 
+                        })
+                        .catch(error => {
+                        })
                 },
                 backPage: function () {
                     document.location.href = "pages.html"

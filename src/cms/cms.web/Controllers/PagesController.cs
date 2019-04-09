@@ -7,6 +7,7 @@ using cms.web.DTOs;
 using cms.web.Infrastructure;
 using cms.web.Models;
 using cms.web.Services;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
 namespace cms.web.Controllers
@@ -17,7 +18,7 @@ namespace cms.web.Controllers
     {
         private IPageService _pageService = null;
 
-        public PagesController(IViewRenderService viewRenderService, IPageService pageService): base(viewRenderService, pageService) {
+        public PagesController(IViewRenderService viewRenderService, IPageService pageService, ISettingsService settingsService, IHostingEnvironment hostingEnvironment) : base(viewRenderService, pageService, settingsService, hostingEnvironment) {
             _pageService = pageService;
         }
 
@@ -78,6 +79,25 @@ namespace cms.web.Controllers
 
             //TODO: If Page is Public, Generate new File
             return page;
+        }
+
+        /// <summary>
+        /// Método chamado na publicação de uma página
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="publish"></param>
+        /// <returns></returns>
+        [HttpPut("{id}/{publish}")]
+        public ActionResult<PageModel> Put(Guid id, bool publish)
+        {
+            var model = _pageService.Get(id);
+            if (model == null)
+                return new NotFoundResult();
+
+            else
+                base.RePublishPages(ref model);
+
+            return model;
         }
 
     }

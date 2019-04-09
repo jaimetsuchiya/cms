@@ -40,7 +40,6 @@ namespace cms.web.Infrastructure
             using (var sw = new StringWriter())
             {
                 var viewResult = _razorViewEngine.FindView(actionContext, viewName, false);
-
                 if (viewResult.View == null)
                 {
                     throw new ArgumentNullException($"{viewName} does not match any available view");
