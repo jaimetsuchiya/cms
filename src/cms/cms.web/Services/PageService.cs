@@ -7,7 +7,15 @@ using System.Threading.Tasks;
 
 namespace cms.web.Services
 {
-    public class PageService : ICRUDService<PageModel>
+    public interface IPageService
+    {
+        List<PageModel> GetAll();
+        PageModel Get(Guid id);
+        void Save(ref PageModel model);
+        void Publish(ref PageModel model);
+    }
+
+    public class PageService: IPageService
     {
         protected IRepository<PageModel> _repository = null;
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using cms.web.DTOs;
+using cms.web.Infrastructure;
 using cms.web.Models;
 using cms.web.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -12,14 +13,12 @@ namespace cms.web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PagesController : ControllerBase
+    public class PagesController : BaseController
     {
-        private PageService _pageService = null;
-        private SettingsService _settingsService = null;
+        private IPageService _pageService = null;
 
-        public PagesController() {
-            _pageService = new PageService();
-            _settingsService = new SettingsService();
+        public PagesController(IViewRenderService viewRenderService, IPageService pageService): base(viewRenderService, pageService) {
+            _pageService = pageService;
         }
 
 
@@ -44,7 +43,8 @@ namespace cms.web.Controllers
         public ActionResult<PageModel> Post([FromBody] PageModel page)
         {
             _pageService.Save(ref page);
-            //TODO: If Page is Public, Generate new File
+            if (page.PublishedAt.HasValue )
+                base.RePublishPages(ref page );
 
             return page;
         }
@@ -72,6 +72,9 @@ namespace cms.web.Controllers
             }
 
             _pageService.Save(ref page);
+
+            if (page.PublishedAt.HasValue)
+                base.RePublishPages(ref page );
 
             //TODO: If Page is Public, Generate new File
             return page;

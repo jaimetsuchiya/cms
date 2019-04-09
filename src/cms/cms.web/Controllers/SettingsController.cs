@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using cms.web.DTOs;
+using cms.web.Infrastructure;
 using cms.web.Models;
 using cms.web.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -12,16 +13,16 @@ namespace cms.web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SettingsController : ControllerBase
+    public class SettingsController : BaseController
     {
-        private PageService _pageService = null;
-        private MenuService _menuService = null;
-        private SettingsService _settingsService = null;
+        private IPageService _pageService = null;
+        private IMenuService _menuService = null;
+        private ISettingsService _settingsService = null;
 
-        public SettingsController() {
-            _pageService = new PageService();
-            _menuService = new MenuService();
-            _settingsService = new SettingsService();
+        public SettingsController(IViewRenderService viewRenderService, IPageService pageService, IMenuService menuService, ISettingsService settingsService): base(viewRenderService, pageService) {
+            _pageService = pageService;
+            _menuService = menuService;
+            _settingsService = settingsService;
         }
 
 
@@ -40,6 +41,11 @@ namespace cms.web.Controllers
         public ActionResult<SettingsModel> Put([FromBody] SettingsModel settings)
         {
             _settingsService.Save(ref settings);
+
+            //Select all published pages
+            //Call RePublish
+            base.RePublishPages(_pageService.GetAll().Where(p => p.PublishedAt.HasValue).ToList());
+
             return settings;
         }
 

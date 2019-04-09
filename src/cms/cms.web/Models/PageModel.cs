@@ -8,9 +8,9 @@ namespace cms.web.Models
 {
     public class PageModel: AuditoryBaseModel
     {
-        public MenuModel Menu { get; set; }
+        public Guid? SideMenuId { get; set; }
 
-        public Guid? MenuId { get; set; }
+        public Guid? TopMenuId { get; set; }
 
         [Required]
         public string Title { get; set; }

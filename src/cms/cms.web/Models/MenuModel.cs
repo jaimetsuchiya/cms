@@ -15,9 +15,6 @@ namespace cms.web.Models
         public string Role { get; set; } = "";
 
         [Required]
-        public bool OnlyAdmin { get; set; } = false;
-
-        [Required]
         public string Title { get; set; }
 
         [Required]
@@ -31,6 +28,15 @@ namespace cms.web.Models
 
         public int Position { get; set; } = 1;
 
+        [Required]
+        public string Name { get; set; }
+
+        [Required]
+        public string CssClassName { get; set; }
+
+        [Required]
+        public MenuLayout Layout { get; set; }
+
     }
 
     public enum MenuSourceType
@@ -39,4 +45,9 @@ namespace cms.web.Models
         ExternalPage = 2
     }
 
+    public enum MenuLayout
+    {
+        SideBarMenu = 1,
+        TopBarMenu = 2
+    }
 }

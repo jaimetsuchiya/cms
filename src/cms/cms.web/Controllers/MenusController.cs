@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using cms.web.DTOs;
+using cms.web.Infrastructure;
 using cms.web.Models;
 using cms.web.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -12,12 +13,14 @@ namespace cms.web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MenusController : ControllerBase
+    public class MenusController : BaseController
     {
-        private MenuService _menuService = null;
+        private IMenuService _menuService = null;
+        private IPageService _pageService = null;
 
-        public MenusController() {
-            _menuService = new MenuService();
+        public MenusController(IViewRenderService viewRenderService, IPageService pageService, IMenuService menuService) : base(viewRenderService, pageService) {
+            _menuService = menuService;
+            _pageService = pageService;
         }
 
 
@@ -42,6 +45,11 @@ namespace cms.web.Controllers
         public ActionResult<MenuModel> Post([FromBody] MenuModel menu)
         {
             _menuService.Save(ref menu);
+
+            //Select published pages using this menu
+            //Call RePublish
+            base.RePublishPages(_pageService.GetAll().Where(p => (p.SideMenuId.HasValue && p.SideMenuId == menu.Id) || (p.TopMenuId.HasValue && p.TopMenuId == menu.Id)).ToList());
+
             return menu;
         }
 

@@ -7,7 +7,14 @@ using System.Threading.Tasks;
 
 namespace cms.web.Services
 {
-    public class MenuService: ICRUDService<MenuModel>
+    public interface IMenuService
+    {
+        List<MenuModel> GetAll();
+        MenuModel Get(Guid id);
+        void Save(ref MenuModel model);
+    }
+
+    public class MenuService: IMenuService
     {
         protected IRepository<MenuModel> _repository = null;
 

@@ -8,7 +8,14 @@ using System.Threading.Tasks;
 
 namespace cms.web.Services
 {
-    public class SettingsService
+    public interface ISettingsService
+    {
+        SettingsModel Get();
+        void Save(ref SettingsModel model);
+        bool IsAuthenticated(LogonDTO dto);
+    }
+
+    public class SettingsService: ISettingsService
     {
         protected IRepository<SettingsModel> _repository = null;
 
