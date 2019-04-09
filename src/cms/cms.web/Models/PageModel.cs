@@ -23,13 +23,13 @@ namespace cms.web.Models
 
         public string Description { get; set; }
 
-
         public string Keywords { get; set; }
-
 
         public string Scripts { get; set; }
 
         [Required]
         public string FileName { get; set; }
+
+        public DateTime? PublishedAt { get; set; }
     }
 }

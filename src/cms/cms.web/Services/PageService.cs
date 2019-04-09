@@ -27,5 +27,11 @@ namespace cms.web.Services
         {
             _repository.Save(ref model);
         }
+
+        public void Publish(ref PageModel model)
+        {
+            //Generate File
+            //Save Publish Date
+        }
     }
 }

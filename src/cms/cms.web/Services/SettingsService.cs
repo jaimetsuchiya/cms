@@ -22,6 +22,8 @@ namespace cms.web.Services
         public void Save(ref SettingsModel model)
         {
             _repository.Save(ref model);
+
+            //TODO: Republica todas as páginas
         }
 
         public bool IsAuthenticated(LogonDTO dto)
