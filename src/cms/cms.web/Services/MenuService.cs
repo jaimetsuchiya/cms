@@ -22,7 +22,7 @@ namespace cms.web.Services
 
         public List<MenuModel> GetAll()
         {
-            return _repository.GetAll().OrderBy(l => l.ParentMenu == null).OrderBy(m=>m.Position).ToList();
+            return _repository.GetAll().OrderBy(l => l.ParentMenuId.HasValue == false).OrderBy(m=>m.Position).ToList();
         }
 
         public MenuModel Get(Guid id)
@@ -36,6 +36,10 @@ namespace cms.web.Services
             //TODO: Republica todas as páginas que utilizam o menu afetado
         }
 
+        public void GetTree(Guid id, ref List<MenuModel> menus)
+        {
+            
+        }
 
     }
 }

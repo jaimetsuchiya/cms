@@ -22,7 +22,7 @@ namespace cms.web.Models
 
         public MenuSourceType SourceType { get; set; } = MenuSourceType.InternalPage;
 
-        public MenuModel ParentMenu { get; set; }
+        public Guid? ParentMenuId { get; set; }
 
         public bool Enabled { get; set; } = true;
 

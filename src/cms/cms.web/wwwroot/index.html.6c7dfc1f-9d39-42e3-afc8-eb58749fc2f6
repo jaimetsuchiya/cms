@@ -1,0 +1,169 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Efatah Efatah</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link rel="shortcut icon" href="#" />
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Required css for production -->
+    <link href="box/box.css" rel="stylesheet" type="text/css" /> <!-- Box Framework css include (contains a simple css for sections) -->
+    <link href="assets/minimalist-blocks/content.css" rel="stylesheet" type="text/css" /> <!-- Snippets css include (contains a simple css for content blocks/snippets) -->
+    <link href="assets/scripts/simplelightbox/simplelightbox.css" rel="stylesheet" type="text/css" /> <!-- Lightbox -->
+
+    <script src="assets/axios.js"></script>
+    <script src="assets/vue.js"></script>
+</head>
+<body>
+
+    <div class="is-wrapper">
+
+<div class="is-section is-section-100 is-box is-align-left is-bg-grey is-light-text">
+	<div class="is-overlay">
+		<div class="is-overlay-content content-selectable" data-module="slider" data-module-desc="Slider" data-html="%3Cdiv%20id%3D%22CA3eJTz%22%20class%3D%22slider-on-box%22%20style%3D%22width%3A100%25%3Bheight%3A100%25%3B%22%3E%3Cdiv%20class%3D%22is-boxes%20slider-image%22%20style%3D%22background-image%3Aurl(assets/designs/images/sample2.jpg)%3B%22%3E%3C%2Fdiv%3E%3Cdiv%20class%3D%22is-boxes%20slider-image%22%20style%3D%22background-image%3Aurl(assets/designs/images/sample1.jpg)%3B%22%3E%3C%2Fdiv%3E%3C%2Fdiv%3E%3Cscript%3E%0Avar%20docReady%3Dfunction(fn)%7Bvar%20stateCheck%3DsetInterval(function%20()%7Bif(document.readyState!%3D%3D%22complete%22)return%3BclearInterval(stateCheck)%3Btry%7Bfn()%7Dcatch(e)%7B%7D%7D%2C1)%3B%7D%3B%0AdocReady(function()%20%7B%0AjQuery(%22%23CA3eJTz%22).slick(%7B%0Adots%3A%20false%2Carrows%3A%20true%2Cinfinite%3A%20true%2Cspeed%3A%20500%2CcssEase%3A%20%22linear%22%2CslidesToShow%3A%201%2Cautoplay%3A%20true%2CautoplaySpeed%3A%203000%2Cfade%3A%20false%2CadaptiveHeight%3A%20true%2Cresponsive%3A%20%5B%7Bbreakpoint%3A%20480%2Csettings%3A%20%7Barrows%3A%20false%2CslidesToShow%3A%201%7D%7D%5D%0A%7D)%3B%0A%7D)%3B%0A%3C%2Fscript%3E" data-settings="%5B%7B%22auto%22%3Atrue%2C%22arrow%22%3Atrue%2C%22dots%22%3Afalse%2C%22fade%22%3Afalse%2C%22height%22%3A%22100%25%22%2C%22images%22%3A%5B%7B%22src%22%3A%20%22assets/designs/images/sample2.jpg%22%2C%20%22caption%22%3A%20%22%22%2C%20%22link%22%3A%20%22%22%2C%20%22width%22%3A%20%22550%22%2C%20%22position%22%3A%20%22bottom%20left%22%7D%2C%7B%22src%22%3A%20%22assets/designs/images/sample1.jpg%22%2C%20%22caption%22%3A%20%22%22%2C%20%22link%22%3A%20%22%22%2C%20%22width%22%3A%20%22550%22%2C%20%22position%22%3A%20%22bottom%20left%22%7D%5D%7D%5D"><div id="CA3eJTz" class="slider-on-box" style="width:100%;height:100%;"><div class="is-boxes slider-image" style="background-image:url(assets/designs/images/sample2.jpg);"></div><div class="is-boxes slider-image" style="background-image:url(assets/designs/images/sample1.jpg);"></div></div><script>
+var docReady=function(fn){var stateCheck=setInterval(function (){if(document.readyState!=="complete")return;clearInterval(stateCheck);try{fn()}catch(e){}},1);};
+docReady(function() {
+jQuery("#CA3eJTz").slick({
+dots: false,arrows: true,infinite: true,speed: 500,cssEase: "linear",slidesToShow: 1,autoplay: true,autoplaySpeed: 3000,fade: false,adaptiveHeight: true,responsive: [{breakpoint: 480,settings: {arrows: false,slidesToShow: 1}}]
+});
+});
+</script></div>
+	</div>
+	<div class="is-boxes">
+		<div class="is-box-centered">
+			<div class="is-container is-builder is-content-640 container">
+				<div class="row clearfix">
+					<div class="column full">
+						<div class="display">
+							<h1>Lorem Ipsum is simply dummy text</h1>
+							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="is-section is-section-100 is-shadow-1">
+	<div class="is-boxes">
+		<div class="is-box is-dark-text is-box-5 is-bg-light">
+			<div class="is-boxes">
+				<div class="is-overlay">
+					<div class="is-overlay-content">
+				</div>
+			</div>
+			<div class="is-box-centered">
+				<div class="is-container is-builder is-content-500 container is-content-right edge-x-0">
+					<div class="row clearfix">
+						<div class="column full">
+							<img src="assets/designs/images/sylvie-tittel-1075622-8mJ7q1.jpg">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="is-box is-bg-light is-dark-text is-box-7 type-engagement-spectral">
+		<div class="is-boxes">
+			<div class="is-box-centered">
+				<div class="is-container is-builder container is-content-500 is-content-left">
+					<div class="row clearfix">
+						<div class="column full">
+							<h1 class="size-32 is-title3-32 is-title-lite" style="text-align: right;">minimal touches.</h1>
+						</div>
+					</div>
+					<div class="row clearfix">
+						<div class="column full">
+							<div class="spacer height-40"></div>
+						</div>
+					</div>
+					<div class="row clearfix">
+						<div class="column full">
+							<p style="text-align: justify;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+						</div>
+					</div>
+					<div class="row clearfix">
+						<div class="column full">
+							<p class="size-16" style="text-align: right;"><i>Alexander Woods</i></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
+<div class="is-section is-section-100 is-shadow-1 is-bg-grey">
+	<div class="is-boxes">
+		<div class="is-box is-bg-light is-dark-text is-box-7 type-nothingyouc-ibmplexmono">
+			<div class="is-boxes">
+				<div class="is-box-centered">
+					<div class="is-container is-builder container is-content-500 is-content-right">
+						<div class="row clearfix">
+							<div class="column full">
+								<div class="display">
+									<h1 class="size-64">Slow Living</h1>
+								</div>
+								<p>Vivian C. Bailey</p>
+							</div>
+						</div>
+						<div class="row clearfix">
+							<div class="column full">
+								<div class="spacer height-60"></div>
+							</div>
+						</div>
+						<div class="row clearfix">
+							<div class="column full">
+								<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum dolor sit amet, consectetur adipiscing elit.</p>
+								<p>Vivamus leo ante, consectetur sit amet vulputate vel, sit amet lectus.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="is-box is-box-5 is-bg-light is-dark-text">
+			<div class="is-boxes">
+				<div class="is-overlay">
+					<div class="is-overlay-content">
+					</div>
+				</div>
+				<div class="is-box-centered">
+					<div class="is-container is-builder is-content-500 container">
+						<div class="row clearfix">
+							<div class="column full">
+								<img src="assets/designs/images/liana-mikah-456665-unsplash-G7jro1.jpg">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!---OTHERS--->
+<link data-name="contentstyle" data-class="type-engagement-spectral" href="assets/styles/type-engagement-spectral.css" rel="stylesheet"><link data-name="contentstyle" data-class="type-nothingyouc-ibmplexmono" href="assets/styles/type-nothingyouc-ibmplexmono.css" rel="stylesheet">
+    </div>
+
+    <!-- Required js for production -->
+    <script src="contentbuilder/jquery.min.js" type="text/javascript"></script>
+    <script src="assets/scripts/simplelightbox/simple-lightbox.min.js" type="text/javascript"></script>
+
+    <!-- Required js for production -->
+    <script src="box/box.js" type="text/javascript"></script> <!-- Box Framework js include -->
+    <script ifc="assets/cms.js"></script>
+
+    
+    
+    
+
+</body>
+</html>

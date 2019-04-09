@@ -61,7 +61,7 @@
                     .get('api/pages')
                     .then(response => {
                         this.pages = response.data;
-                        console.log()
+                        console.log('pages', this.pages)
                     })
                     .catch(error => {
                         console.log(error)

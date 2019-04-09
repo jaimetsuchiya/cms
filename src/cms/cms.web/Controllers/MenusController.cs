@@ -54,5 +54,25 @@ namespace cms.web.Controllers
             return menu;
         }
 
+        /// <summary>
+        /// Método chamado na publicação de uma página
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="publish"></param>
+        /// <returns></returns>
+        [HttpPut("{id}/{publish}")]
+        public ActionResult<MenuModel> Put(Guid id, bool publish)
+        {
+            var model = _menuService.Get(id);
+            if (model == null)
+                return new NotFoundResult();
+
+            else if (model.ParentMenuId.HasValue)
+                return new BadRequestResult();
+
+          
+            return model;
+        }
+
     }
 }

@@ -25,6 +25,7 @@ namespace cms.web.Controllers
             _pageService = pageService;
             _settingsService = settingsService;
             _viewRenderService = viewRenderService;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         protected void RePublishPages(List<PageModel> pages)
@@ -54,7 +55,7 @@ namespace cms.web.Controllers
             var result = _viewRenderService.RenderToStringAsync("Pages/Template", dto).Result;
             if( string.IsNullOrEmpty(page.FileName) == false )
             {
-                var fileName = Path.Combine(_hostingEnvironment.WebRootPath, page.FileName, ".html");
+                var fileName = Path.Combine(_hostingEnvironment.WebRootPath, (page.FileName + ".html"));
                 if(System.IO.File.Exists(fileName))
                 {
                     var fileNameVersionControl = fileName + "." + Guid.NewGuid().ToString("D");

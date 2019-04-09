@@ -15,7 +15,7 @@ namespace cms.web.Repositories
 
         public List<MenuModel> GetChilds(Guid parentId)
         {
-            return base.GetAll().OrderBy(l => l.ParentMenu != null && l.ParentMenu.Id == parentId).OrderBy(m => m.Position).ToList();
+            return base.GetAll().OrderBy(l => l.ParentMenuId != null && l.ParentMenuId == parentId).OrderBy(m => m.Position).ToList();
         }
     }
 }

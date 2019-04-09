@@ -21,8 +21,8 @@
     <script src="assets/vue.js"></script>
     @if( Model != null && Model.Page != null)
     {
-        Html.Raw(Model.Page.MainCSS == null ? "" : Model.Page.MainCSS);
-        Html.Raw(Model.Page.SectionCSS == null ? "" : Model.Page.SectionCSS);
+        @Html.Raw(string.IsNullOrEmpty(Model.Page.MainCSS) ? "" : Model.Page.MainCSS);
+        @Html.Raw(string.IsNullOrEmpty(Model.Page.SectionCSS) ? "" : Model.Page.SectionCSS);
     }
 </head>
 <body>
@@ -35,7 +35,6 @@
             {
                 <div class="bg-light border-right" id="sidebar-wrapper" w3-include-html="assets/@(Model.Page.SideMenuId.Value.ToString("D")).html"></div>
                 <div id="page-content-wrapper" class="app">
-
                     @if (Model.Page.TopMenuId.HasValue)
                     {
                         <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom" w3-include-html="assets/@(Model.Page.TopMenuId.Value.ToString("D")).html"></nav>
@@ -47,7 +46,7 @@
             }
             else
             {
-                Html.Raw(Model != null && Model.Page != null ? Model.Page.Content : "");
+                @Html.Raw(Model != null && Model.Page != null ? Model.Page.Content : "");
             }
         }
 
