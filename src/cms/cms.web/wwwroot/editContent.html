@@ -20,11 +20,9 @@
             document.getElementsByTagName('head')[0].insertAdjacentHTML('beforeend', localStorage.getItem('sectioncss'));
         }
     </script>
-
     <link href="assets/scripts/simplelightbox/simplelightbox.css" rel="stylesheet" type="text/css" /> <!-- Lightbox css include -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
-
+    <link href="assets/fa/css/all.css" rel="stylesheet" />
     <!-- Required css for editing (not needed in production) -->
     <link href="contentbuilder/contentbuilder.css" rel="stylesheet" type="text/css" />
     <link href="contentbox/contentbox.css" rel="stylesheet" type="text/css" />
@@ -72,14 +70,12 @@
                 }
             });
 
-            
             //Load content based on the informed id
             setTimeout(function () {
-                $('#lnkSideBarSave').detach().appendTo(".is-sidebar");
-                $('#lnkSideBarBack').detach().appendTo(".is-sidebar");
-                onLoad();
-            }, 500)
 
+                onLoad();
+            }, 1000)
+            
             $("#lnkSideBarBack").off('click').on('click', function () {
 
                 var lastSave = new Date(localStorage.getItem('lastSave'));
@@ -142,6 +138,7 @@
         }
 
         function onLoad() {
+            console.log('onLoad')
             //Load content from database (in this example we use browser's localStorage. Normally you need to load saved content from database and place it directly inside div.is-wrapper above)
             if (localStorage.getItem('mypage') != null) {
                 $(".is-wrapper").html(localStorage.getItem('mypage'));
@@ -172,7 +169,10 @@
             });
 
             $('a.is-lightbox').simpleLightbox({ closeText: '<i style="font-size:35px" class="icon ion-ios-close-empty"></i>', navText: ['<i class="icon ion-ios-arrow-left"></i>', '<i class="icon ion-ios-arrow-right"></i>'], disableScroll: false });
-
+            
+            $('#lnkSideBarSave').detach().appendTo($(".is-sidebar").first());
+            $('#lnkSideBarBack').detach().appendTo($(".is-sidebar").first());
+    
         }
     </script>
 

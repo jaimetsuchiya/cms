@@ -19,7 +19,7 @@
 </head>
 <body >
 
-    <div class="is-wrapper" id="app" >
+    <div id="app" >
 
 
     </div>
@@ -37,10 +37,11 @@
         new Vue({
             el: '#app',
             data: {
-                loading: true,
                 model: {
                 },
-                errors: []
+                settings: {
+
+                }
             },
             mounted() {
                 axios
@@ -50,7 +51,17 @@
                     })
                     .catch(error => {
                         console.log(error);
+                    });
+
+            
+                axios
+                    .get('api/settings')
+                    .then(response => {
+                        this.settings = response.data;
                     })
+                    .catch(error => {
+                        console.log(error);
+                    });
             }
         })
     </script>

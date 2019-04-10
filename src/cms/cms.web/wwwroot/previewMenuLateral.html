@@ -19,8 +19,16 @@
 </head>
 <body >
 
-    <div class="is-wrapper" id="app" >
-
+    <div id="app">
+        <div class="sidebar-heading">{{this.settings.siteTitle}}</div>
+        <div class="list-group list-group-flush">
+            <a href="dashboard.html" class="list-group-item list-group-item-action bg-light">Dashboard</a>
+            <a href="menus.html" class="list-group-item list-group-item-action bg-light">Menus</a>
+            <a href="pages.html" class="list-group-item list-group-item-action bg-light">Páginas</a>
+            <a href="contacts.html" class="list-group-item list-group-item-action bg-light">Contatos</a>
+            <a href="users.html" class="list-group-item list-group-item-action bg-light">Usuários</a>
+            <a href="settings.html" class="list-group-item list-group-item-action bg-light">Configurações</a>
+        </div>
 
     </div>
 
@@ -37,16 +45,26 @@
         new Vue({
             el: '#app',
             data: {
-                loading: true,
                 model: {
                 },
-                errors: []
+                settings: {
+
+                }
             },
             mounted() {
                 axios
                     .get('api/menu/' + getParameterByName('id'))
                     .then(response => {
                         this.model = response.data;
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+
+                axios
+                    .get('api/settings')
+                    .then(response => {
+                        this.settings = response.data;
                     })
                     .catch(error => {
                         console.log(error);

@@ -9,7 +9,8 @@
 
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/simple-sidebar.css" rel="stylesheet">
-
+    <script src="assets/axios.js"></script>
+    <script src="assets/vue.js"></script>
 </head>
 <body>
     <div class="d-flex" id="wrapper">
@@ -32,36 +33,13 @@
                             <div class="form-row">
                                 <div class="col-md-6 mb-3">
                                     <label for="validationServer01">Domínio</label>
-                                    <input type="text" class="form-control is-valid" id="domainName" placeholder="Title" value="localhost" required>
-                                    <div class="valid-feedback">
-                                        Ok!
-                                    </div>
+                                    <input type="text" class="form-control is-valid" id="domainName" placeholder="Domain"  v-model="model.domainName" value="localhost" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="validationServer01">Site Title</label>
-                                    <input type="text" class="form-control is-valid" id="siteTitle" placeholder="Title" value="Meu Site" required>
-                                    <div class="valid-feedback">
-                                        Ok!
-                                    </div>
+                                    <input type="text" class="form-control is-valid" id="siteTitle" placeholder="Title" v-model="model.siteTitle" value="Meu Site" required>
                                 </div>
                             </div>
-                            <div class="form-row">
-                                <div class="col-md-6 mb-3">
-                                    <label for="validationServer02">Descrição</label>
-                                    <textarea rows="2" class="form-control is-valid" id="description" placeholder="" value="" required></textarea>
-                                    <div class="valid-feedback">
-                                        Ok!
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="validationServer02">Palavras-Chave</label>
-                                    <textarea rows="2" class="form-control is-valid" id="keywords" placeholder="" value="" required></textarea>
-                                    <div class="valid-feedback">
-                                        Ok!
-                                    </div>
-                                </div>
-                            </div>
-
                             <div class="form-row">
                                 <div class="col-lg-12 mb-3">
                                     <h3>Contato</h3>
@@ -70,89 +48,56 @@
                             <div class="form-row">
                                 <div class="col-md-6 mb-3">
                                     <label for="validationServer01">Email</label>
-                                    <input type="text" class="form-control is-valid" id="contactEmail" placeholder="email@dominio.com.br" value="" required>
-                                    <div class="valid-feedback">
-                                        Ok!
-                                    </div>
+                                    <input type="text" class="form-control is-valid" id="contactEmail" placeholder="Email" v-model="model.contactEmail" value="" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="validationServer01">Assunto</label>
-                                    <input type="text" class="form-control is-valid" id="contactSubject" placeholder="Assunto" value="" required>
-                                    <div class="valid-feedback">
-                                        Ok!
-                                    </div>
+                                    <input type="text" class="form-control is-valid" id="contactSubject" placeholder="Assunto" v-model="model.contactSubject" value="" required>
                                 </div>
                                 <div class="col-md-3 mb-3">
                                     <label for="validationServer01">Servidor</label>
-                                    <input type="text" class="form-control is-valid" id="contactServerName" placeholder="smtp.gmail.com" value="" required>
-                                    <div class="valid-feedback">
-                                        Ok!
-                                    </div>
+                                    <input type="text" class="form-control is-valid" id="contactServerName" placeholder="Servidor SMTP" v-model="model.contactServerName" value="" required>
                                 </div>
                                 <div class="col-md-3 mb-3">
                                     <label for="validationServer01">Porta</label>
-                                    <input type="text" class="form-control is-valid" id="contactServerPort" placeholder="Porta" value="25" required>
-                                    <div class="valid-feedback">
-                                        Ok!
-                                    </div>
+                                    <input type="text" class="form-control is-valid" id="contactServerPort" placeholder="Porta" v-model="model.contactServerPort" value="25" required>
                                 </div>
                                 <div class="col-md-3 mb-3">
                                     <label for="validationServer01">Habilitar SSL</label>
-                                    <select class="form-control is-valid" id="contactUseSSL" placeholder="smtp.gmail.com" value="" required>
+                                    <select class="form-control is-valid" id="contactUseSSL" placeholder="SSL" v-model="model.contactUseSSL" value="" required>
                                         <option value="1">Sim</option>
                                         <option value="0">Não</option>
                                     </select>
-                                    <div class="valid-feedback">
-                                        Ok!
-                                    </div>
                                 </div>
                                 <div class="col-md-3 mb-3">
                                     <label for="validationServer01">Mensagem HTML</label>
-                                    <select class="form-control is-valid" id="contactBodyHtml" placeholder="smtp.gmail.com" value="" required>
+                                    <select class="form-control is-valid" id="contactBodyHtml" placeholder="Mensagem HTML" v-model="model.contactBodyHtml" value="" required>
                                         <option value="1">Sim</option>
                                         <option value="0">Não</option>
                                     </select>
-                                    <div class="valid-feedback">
-                                        Ok!
-                                    </div>
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label for="validationServer01">Usuário</label>
-                                    <input type="text" class="form-control is-valid" id="contactUser" placeholder="user@gmail.com" value="" required>
-                                    <div class="valid-feedback">
-                                        Ok!
-                                    </div>
+                                    <input type="text" class="form-control is-valid" id="contactUser" placeholder="Usuário" v-model="model.contactUser" value="" required>
                                 </div>
                                 <div class="col-md-3 mb-3">
                                     <label for="validationServer01">Senha</label>
-                                    <input type="password" class="form-control is-valid" id="contactPassword" placeholder="Senha" value="" required>
-                                    <div class="valid-feedback">
-                                        Ok!
-                                    </div>
+                                    <input type="password" class="form-control is-valid" id="contactPassword" placeholder="Senha" v-model="model.contactPassword" value="" required>
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
                                     <label for="validationServer02">Google Maps Link</label>
-                                    <input type="text" class="form-control is-valid" id="googleMapsLink" placeholder="" value="" required>
-                                    <div class="valid-feedback">
-                                        Ok!
-                                    </div>
+                                    <input type="text" class="form-control is-valid" id="googleMapsLink" placeholder="" v-model="model.googleMapsLink" value="" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="validationServer02">Endereço(s)</label>
-                                    <textarea rows="2" class="form-control is-valid" id="addresses" placeholder="" value="" required></textarea>
-                                    <div class="valid-feedback">
-                                        Ok!
-                                    </div>
+                                    <textarea rows="2" class="form-control is-valid" id="addresses" placeholder="" v-model="model.addresses" value="" required></textarea>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="validationServer02">Telefone(s)</label>
-                                    <textarea rows="2" class="form-control is-valid" id="phones" placeholder="" value="" required></textarea>
-                                    <div class="valid-feedback">
-                                        Ok!
-                                    </div>
+                                    <textarea rows="2" class="form-control is-valid" id="phones" placeholder="" v-model="model.phones" value="" required></textarea>
                                 </div>
                             </div>
 
@@ -164,19 +109,13 @@
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
                                     <label for="validationServer02">Google Analitycs</label>
-                                    <textarea rows="2" class="form-control is-valid" id="googleAnalitycs" placeholder="" value="" required></textarea>
-                                    <div class="valid-feedback">
-                                        Ok!
-                                    </div>
+                                    <textarea rows="2" class="form-control is-valid" id="googleAnalitycs" placeholder="" v-model="model.googleAnalitycs" value="" required></textarea>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
                                     <label for="validationServer02">Share It</label>
-                                    <textarea rows="2" class="form-control is-valid" id="shareIt" placeholder="" value="" required></textarea>
-                                    <div class="valid-feedback">
-                                        Ok!
-                                    </div>
+                                    <textarea rows="2" class="form-control is-valid" id="shareIt" placeholder="" v-model="model.shareIt" value="" required></textarea>
                                 </div>
                             </div>
 
@@ -188,20 +127,14 @@
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
                                     <label for="validationServer01">Usuário Administrador</label>
-                                    <input type="text" class="form-control is-valid" id="adminUser" placeholder="user@gmail.com" value="" required>
-                                    <div class="valid-feedback">
-                                        Ok!
-                                    </div>
+                                    <input type="text" class="form-control is-valid" id="adminUser" placeholder="user@gmail.com" v-model="model.adminUser" value="" required>
                                 </div>
                                 <div class="col-md-3 mb-3">
                                     <label for="validationServer01">Senha de Acesso</label>
-                                    <input type="password" class="form-control is-valid" id="adminPassword" placeholder="Senha" value="" required>
-                                    <div class="valid-feedback">
-                                        Ok!
-                                    </div>
+                                    <input type="password" class="form-control is-valid" id="adminPassword" placeholder="Senha" v-model="model.adminPassword" value="" required>
                                 </div>
                             </div>
-                            <button class="btn btn-primary" type="submit">Gravar Configurações</button>
+                            <button class="btn btn-primary" type="submit" @click="saveSettings">Gravar Configurações</button>
                         </form>
                     </div>
                 </div>
@@ -216,13 +149,52 @@
     <!-- Bootstrap core JavaScript -->
     <script src="assets/vendor/jquery/jquery.min.js"></script>
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+    <script src="assets/cms.js"></script>
     <!-- Menu Toggle Script -->
     <script>
-        $("#menu-toggle").click(function (e) {
-            e.preventDefault();
-            $("#wrapper").toggleClass("toggled");
+
+        new Vue({
+            el: '.app',
+            data: {
+                model: {}
+            },
+            mounted() {
+                axios
+                    .get('api/settings')
+                    .then(response => {
+                        this.model = response.data;
+                        console.log('settings', this.model)
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    });
+            },
+            methods: {
+                saveSettings: function () {
+                    axios
+                        .post('api/settings', this.model)
+                        .then(response => {
+                            this.model = response.data;
+                            console.log('settings', this.model)
+                        })
+                        .catch(error => {
+                            console.log(error)
+                        });
+                },
+                republishFiles: function () {
+                     axios
+                        .post('api/settings', this.model)
+                        .then(response => {
+                            this.model = response.data;
+                            console.log('settings', this.model)
+                        })
+                        .catch(error => {
+                            console.log(error)
+                        });
+                }
+            }
         });
+
     </script>
 
 
