@@ -65,10 +65,17 @@
                         </div>
                         <div class="form-row">
                             <div class="col-md-6">
-                                <label for="validationServer01">Menu</label>
-                                <select class="form-control is-valid" id="pageMenu" required v-model="model.menuId">
+                                <label for="validationServer01">Menu Lateral</label>
+                                <select class="form-control is-valid" id="pageMenuLateral" required v-model="model.sideMenuId">
                                     <option value="">-- Nenhum --</option>
-                                    <option v-for="item in menus" v-bind:value="item.Id">{{item.title}}</option>
+                                    <option v-for="item in menus" v-bind:value="item.Id">{{item.name}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="validationServer01">Menu Superior</label>
+                                <select class="form-control is-valid" id="pageMenuSuperior" required v-model="model.topMenuId">
+                                    <option value="">-- Nenhum --</option>
+                                    <option v-for="item in menus" v-bind:value="item.Id">{{item.name}}</option>
                                 </select>
                             </div>
                         </div>
@@ -124,7 +131,8 @@
             el: '.app',
             data: {
                 loading: true,
-                menus: [],
+                sideMenus: [],
+                topMenus: [],
                 model: {
                 },
                 errors: [],
@@ -132,14 +140,22 @@
             },
             mounted() {
                 axios
-                    .get('api/menus')
+                    .get('api/menus/1')
                     .then(response => {
-                        this.menus = response.data
+                        this.sideMenus = response.data
                     })
                     .catch(error => {
-                        console.log('catch1', error);
+                        console.log('side menu catch', error);
+                    });
+
+                axios
+                    .get('api/menus/2')
+                    .then(response => {
+                        this.topMenus = response.data
                     })
-                    .finally(() => this.loading = false);
+                    .catch(error => {
+                        console.log('top menu catch', error);
+                    });
 
                 axios
                     .get('api/pages/' + getParameterByName('id'))

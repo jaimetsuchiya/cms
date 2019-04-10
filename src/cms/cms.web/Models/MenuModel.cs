@@ -8,10 +8,10 @@ namespace cms.web.Models
 {
     public class MenuModel : AuditoryBaseModel
     {
-        [Required]
+        //[Required]
         public bool Secure { get; set; } = false;
 
-        [Required]
+        //[Required]
         public string Role { get; set; } = "";
 
         [Required]
@@ -19,8 +19,6 @@ namespace cms.web.Models
 
         [Required]
         public string Source { get; set; }
-
-        public MenuSourceType SourceType { get; set; } = MenuSourceType.InternalPage;
 
         public Guid? ParentMenuId { get; set; }
 
@@ -31,7 +29,7 @@ namespace cms.web.Models
         [Required]
         public string Name { get; set; }
 
-        [Required]
+        //[Required]
         public string CssClassName { get; set; }
 
         [Required]
@@ -40,11 +38,6 @@ namespace cms.web.Models
         public DateTime? PublishedAt { get; set; }
     }
 
-    public enum MenuSourceType
-    {
-        InternalPage = 1,
-        ExternalPage = 2
-    }
 
     public enum MenuLayout
     {

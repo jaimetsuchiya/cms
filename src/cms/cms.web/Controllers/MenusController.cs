@@ -32,6 +32,14 @@ namespace cms.web.Controllers
         }
 
 
+
+        [HttpGet("{layout}")]
+        public ActionResult<IEnumerable<MenuModel>> Get(int layout)
+        {
+            return _menuService.GetAll().Where(m=>m.Layout == (MenuLayout)layout).ToList();
+        }
+
+
         [HttpGet("{id}")]
         public ActionResult<MenuModel> Get(Guid id)
         {

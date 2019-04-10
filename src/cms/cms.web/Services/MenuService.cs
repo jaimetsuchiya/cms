@@ -38,7 +38,23 @@ namespace cms.web.Services
 
         public void GetTree(Guid id, ref List<MenuModel> menus)
         {
-            
+            if (menus == null)
+                menus = new List<MenuModel>();
+
+            var main = _repository.GetSingle(id);
+            if( main != null )
+            {
+                if (main.ParentMenuId.HasValue)
+                    menus.Add(main);
+
+                var childs = _repository.GetAll().Where(m => m.ParentMenuId == main.Id).ToList();
+                if( childs != null )
+                {
+                    for (var i = 0; i < childs.Count; i++)
+                        GetTree(childs[i].Id, ref menus);
+                }
+                
+            }
         }
 
     }
