@@ -58,40 +58,7 @@
     <script type="text/javascript">
 
         jQuery(document).ready(function ($) {
-
-            //Load content from database (in this example we use browser's localStorage. Normally you need to load saved content from database and place it directly inside div.is-wrapper above)
-            if (localStorage.getItem('mypage') != null) {
-                $(".is-wrapper").html(localStorage.getItem('mypage'));
-            }
-
-            //Enable editing
-            $(".is-wrapper").contentbox({
-                coverImageHandler: 'savecover.ashx', /* for uploading section background */
-                largerImageHandler: 'saveimage-large.ashx', /* for uploading larger image */
-                moduleConfig: [{
-                    "moduleSaveImageHandler": "saveimage-module.ashx" /* for module purpose image saving (ex. slider) */
-                }],
-                onRender: function () {
-                    //Add lightbox script (This is optional. If used, lightbox js & css must be included)
-                    $('a.is-lightbox').simpleLightbox({ closeText: '<i style="font-size:35px" class="icon ion-ios-close-empty"></i>', navText: ['<i class="icon ion-ios-arrow-left"></i>', '<i class="icon ion-ios-arrow-right"></i>'], disableScroll: false });
-                },
-                onChange: function () {
-                    //Auto Save
-                    var timeoutId;
-                    clearTimeout(timeoutId);
-                    timeoutId = setTimeout(function () {
-                        save();
-                    }, 1000);
-                },
-                useSidebar: true,
-                enableContentStyle: true /* (1) Applicable only if useSidebar is set true.
-                                                    (2) If enableContentStyle is set true, styles must also be saved. Use .mainCss() & sectionCss() to get the styles. See save() function below. */
-            });
-
-            $('a.is-lightbox').simpleLightbox({ closeText: '<i style="font-size:35px" class="icon ion-ios-close-empty"></i>', navText: ['<i class="icon ion-ios-arrow-left"></i>', '<i class="icon ion-ios-arrow-right"></i>'], disableScroll: false });
-
-            //Load content based on the informed id
-            
+        
             $.ajax({
                 type: 'GET',
                 dataType: 'json',
@@ -99,12 +66,18 @@
                 success: function (result) {
                     console.log('get page', result);
                     localStorage.setItem('model', JSON.stringify(result));
+                    localStorage.setItem('mypage', result.content);
+                    localStorage.setItem('maincss', result.mainCSS);
+                    localStorage.setItem('sectioncss', result.sectionCSS);
                 }
             });
 
+            
+            //Load content based on the informed id
             setTimeout(function () {
                 $('#lnkSideBarSave').detach().appendTo(".is-sidebar");
                 $('#lnkSideBarBack').detach().appendTo(".is-sidebar");
+                onLoad();
             }, 500)
 
             $("#lnkSideBarBack").off('click').on('click', function () {
@@ -168,6 +141,39 @@
             $("body").data('saveimages').save();
         }
 
+        function onLoad() {
+            //Load content from database (in this example we use browser's localStorage. Normally you need to load saved content from database and place it directly inside div.is-wrapper above)
+            if (localStorage.getItem('mypage') != null) {
+                $(".is-wrapper").html(localStorage.getItem('mypage'));
+            }
+
+            //Enable editing
+            $(".is-wrapper").contentbox({
+                coverImageHandler: 'savecover.ashx', /* for uploading section background */
+                largerImageHandler: 'saveimage-large.ashx', /* for uploading larger image */
+                moduleConfig: [{
+                    "moduleSaveImageHandler": "saveimage-module.ashx" /* for module purpose image saving (ex. slider) */
+                }],
+                onRender: function () {
+                    //Add lightbox script (This is optional. If used, lightbox js & css must be included)
+                    $('a.is-lightbox').simpleLightbox({ closeText: '<i style="font-size:35px" class="icon ion-ios-close-empty"></i>', navText: ['<i class="icon ion-ios-arrow-left"></i>', '<i class="icon ion-ios-arrow-right"></i>'], disableScroll: false });
+                },
+                onChange: function () {
+                    //Auto Save
+                    var timeoutId;
+                    clearTimeout(timeoutId);
+                    timeoutId = setTimeout(function () {
+                        save();
+                    }, 1000);
+                },
+                useSidebar: true,
+                enableContentStyle: true /* (1) Applicable only if useSidebar is set true.
+                                                    (2) If enableContentStyle is set true, styles must also be saved. Use .mainCss() & sectionCss() to get the styles. See save() function below. */
+            });
+
+            $('a.is-lightbox').simpleLightbox({ closeText: '<i style="font-size:35px" class="icon ion-ios-close-empty"></i>', navText: ['<i class="icon ion-ios-arrow-left"></i>', '<i class="icon ion-ios-arrow-right"></i>'], disableScroll: false });
+
+        }
     </script>
 
     <!-- Required js for production -->
